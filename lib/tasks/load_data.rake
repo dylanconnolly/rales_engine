@@ -10,6 +10,7 @@ namespace :db do
     end
   end
 
+
   desc "read each line of merchant file and create merchant records for each row in file"
   task :load_merchants => :environment do
     record_count = 0
@@ -69,4 +70,19 @@ namespace :db do
     end
     puts "Opened invoice_item data file and created #{record_count} invoice_item records."
   end
+
+  #trying to refactor to get rid of repetitiveness
+  task :load_ambig_file => :environment do
+    load_file("merchants", Merchant)
+  end
+
+  def load_file(record_name, model)
+    record_count = 0
+    CSV.foreach("#{Rails.root}/db/data/#{record_name}.csv", {headers: true}) do |line|
+      require "pry"; binding.pry
+      model.create(line.to_hash)
+      record_count += 1
+    end
+  end
+
 end

@@ -4,5 +4,5 @@ class Invoice < ApplicationRecord
 
   has_many :items, through: :invoice_items
 
-  enum :status ["unshipped", "shipped"]
+  enum status: ["unshipped", "shipped"]
 end

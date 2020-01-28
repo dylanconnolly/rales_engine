@@ -2,24 +2,27 @@ require 'csv'
 
 namespace :db do
 
-  desc "read all files in db/data directory and create records in db"
-  task :load_data => :environment do
-    Dir.glob("#{Rails.root}/db/data/*.csv").each do |file|
-      model = File.basename(file, ".csv").singularize
-      data = CSV.read(file, {headers: true})
+  task :load_all_data => :environment do
+    data_file_models = [Customer, Merchant, Item, Invoice, Transaction, InvoiceItem]
+    data_file_models.each do |data|
+      load_file(data)
     end
   end
 
 
+##### Old load data rake tasks
+
   desc "read each line of merchant file and create merchant records for each row in file"
   task :load_merchants => :environment do
+    Merchant.destroy_all
     record_count = 0
     CSV.foreach("#{Rails.root}/db/data/merchants.csv", {headers: true}) do |line|
       Merchant.create(line.to_hash)
       record_count += 1
-      puts "Opened Merchant data file and created #{record_count} merchant records."
     end
+    puts "Opened Merchant data file and created #{record_count} merchant records."
   end
+
 
   desc "read each line of customer file and create customer records for each row in file"
   task :load_customers => :environment do
@@ -72,17 +75,16 @@ namespace :db do
   end
 
   #trying to refactor to get rid of repetitiveness
-  task :load_ambig_file => :environment do
-    load_file("merchants", Merchant)
-  end
 
-  def load_file(record_name, model)
+  def load_file(model)
+    model.delete_all
+    record_name = model.to_s.downcase.pluralize
     record_count = 0
     CSV.foreach("#{Rails.root}/db/data/#{record_name}.csv", {headers: true}) do |line|
-      require "pry"; binding.pry
       model.create(line.to_hash)
       record_count += 1
     end
+    puts "Created #{record_count} #{model.to_s} records."
   end
 
 end

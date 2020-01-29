@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Merchant, type: :model do
-  describe "instance methods" do
-    it "#total_revenue" do
+  describe "class methods" do
+    xit "most_revenue" do
       merchant = create(:merchant_with_items)
       customer = create(:customer)
       invoice = create(:invoice, customer: customer, merchant: merchant)

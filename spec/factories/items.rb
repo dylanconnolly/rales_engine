@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :item do
-    name { "Super Real Item" }
+    sequence(:name) { |n| "Item #{n}" }
     description { "Item is as real as can be" }
-    unit_price { 10234 }
+    sequence(:unit_price, 1000) { |n| n }
     merchant { nil }
   end
 end

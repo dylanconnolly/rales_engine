@@ -8,9 +8,14 @@ describe "merchant API" do
     merchants.first.items.each do |item|
       create(:invoice_item, invoice: invoice, item: item)
     end
+    create(:transaction, invoice: invoice)
 
     get "/api/v1/merchants/most_revenue?quantity=2"
 
     expect(response).to be_successful
+
+    list = JSON.parse(response.body)
+
+    expect(list["data"].first["id"]).to eq("#{merchants.first.id}")
   end
 end

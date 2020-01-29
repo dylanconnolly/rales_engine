@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :merchants do
         resources :most_revenue, only: [:index]
+        resources :find, only: [:index]
       end
 
       resources :merchants, only: [:index, :show] do

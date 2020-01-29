@@ -10,8 +10,20 @@ describe 'Merchants API' do
 
     merchants = JSON.parse(response.body)
 
-    require "pry"; binding.pry
+    expect(merchants["data"].count).to eq(5)
+  end
 
-    expect(merchants.count).to eq(5)
+  it "can send one merchant by id" do
+    create(:merchant)
+
+    merchant = Merchant.last
+
+    get "/api/v1/merchants/#{merchant.id}"
+
+    expect(response).to be_successful
+
+    output = JSON.parse(response.body)
+
+    expect(output["data"]["attributes"]["name"]).to eq(merchant.name)
   end
 end

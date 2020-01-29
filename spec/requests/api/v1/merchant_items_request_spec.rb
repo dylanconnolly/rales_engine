@@ -13,7 +13,6 @@ describe "merchants items API" do
     expect(response).to be_successful
 
     items_hash = JSON.parse(response.body)
-    # require "pry"; binding.pry
-    # expect(items_hash["data"].count)
+    expect(items_hash["data"].count).to eq(5)
   end
 end

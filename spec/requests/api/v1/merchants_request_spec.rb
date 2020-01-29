@@ -10,6 +10,8 @@ describe 'Merchants API' do
 
     merchants = JSON.parse(response.body)
 
+    require "pry"; binding.pry
+
     expect(merchants.count).to eq(5)
   end
 end

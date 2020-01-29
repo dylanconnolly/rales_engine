@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      namespace :merchants do
+        resources :most_revenue, only: [:index]
+      end
+
       resources :merchants, only: [:index, :show] do
 
         scope module: 'merchants' do
@@ -10,7 +14,6 @@ Rails.application.routes.draw do
         end
 
       end
-
     end
   end
 end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :merchant do
-    name { "Mr. Merchant" }
+    sequence(:name) { |n| "Merchant #{n}" }
 
     factory :merchant_with_items do
       transient do

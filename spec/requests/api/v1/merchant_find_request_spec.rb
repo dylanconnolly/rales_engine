@@ -52,7 +52,6 @@ describe "merchant find_all API" do
     expect(response).to be_successful
 
     merchant_info = JSON.parse(response.body)
-    require "pry"; binding.pry
 
     expect(merchant_info["data"].first["attributes"]["name"]).to eq(merchant1.name)
   end
@@ -67,7 +66,6 @@ describe "merchant find_all API" do
     expect(response).to be_successful
 
     merchant_info = JSON.parse(response.body)
-    require "pry"; binding.pry
 
     expect(merchant_info["data"].count).to eq(2)
     expect(merchant_info["data"].first["attributes"]["name"]).to eq(merchant1.name)

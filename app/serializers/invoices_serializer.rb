@@ -4,5 +4,5 @@ class InvoicesSerializer
     belongs_to :merchant
     belongs_to :customer
 
-    attributes :status
+    attributes :id, :status, :merchant_id, :customer_id
 end

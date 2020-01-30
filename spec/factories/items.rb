@@ -3,6 +3,6 @@ FactoryBot.define do
     sequence(:name) { |n| "Item #{n}" }
     description { "Item is as real as can be" }
     sequence(:unit_price, 1000) { |n| n }
-    merchant { nil }
+    merchant
   end
 end

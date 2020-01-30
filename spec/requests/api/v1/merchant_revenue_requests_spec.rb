@@ -18,4 +18,8 @@ describe "merchant API" do
 
     expect(list["data"].first["id"]).to eq("#{merchants.first.id}")
   end
+
+  it "returns total revenue across all merchants on a specified date" do
+    
+  end
 end

@@ -2,15 +2,30 @@ require 'rails_helper'
 
 RSpec.describe Merchant, type: :model do
   describe "class methods" do
-    xit "most_revenue" do
-      merchant = create(:merchant_with_items)
-      customer = create(:customer)
-      invoice = create(:invoice, customer: customer, merchant: merchant)
-      merchant.items.each do |item|
-        create(:invoice_item, invoice: invoice, item: item)
+    it "most_revenue" do
+      create_list(:invoice, 10)
+
+      Invoice.all.each do |invoice|
+        create(:invoice_item, invoice: invoice, item: (create(:item, merchant: invoice.merchant)))
+        create(:transaction, invoice: invoice)
       end
 
-      expect(merchant.total_revenue).to eq(500)
+      expect(Merchant.most_revenue(5).length).to eq(5)
+      expect(Merchant.most_revenue(3).length).to eq(3)
+    end
+
+    it "total_revenue_on_date" do
+      create_list(:invoice, 10)
+
+      Invoice.all.each do |invoice|
+        create(:invoice_item, invoice: invoice, item: (create(:item, merchant: invoice.merchant)))
+        create(:transaction, invoice: invoice)
+      end
+
+      query = Merchant.total_revenue_on_date(Date.today.strftime('%Y-%m-%d'))
+      revenue_on_date = query[0].total_revenue
+
+      expect(revenue_on_date).to eq(10.00)
     end
   end
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "merchant finder API" do
-  it "returns a single instance of a merchant based off id params" do
+  xit "returns a single instance of a merchant based off id params" do
     create_list(:merchant, 10)
 
     merchant = Merchant.last
@@ -14,7 +14,7 @@ describe "merchant finder API" do
     expect(merchant_info["data"]["attributes"]["name"]).to eq(merchant.name)
   end
 
-  it "returns a single instance of merchant baseed off name" do
+  xit "returns a single instance of merchant baseed off name" do
     create_list(:merchant, 10)
 
     merchant = Merchant.last
@@ -27,12 +27,12 @@ describe "merchant finder API" do
     expect(merchant_info["data"]["attributes"]["name"]).to eq(merchant.name)
   end
 
-  xit "returns a single instance of merchant based off date created" do
-    create_list(:merchant, 10)
+  it "returns a single instance of merchant based off date created" do
+    create(:merchant, created_at: "2020-01-10", updated_:at "2020-01-25")
 
     merchant = Merchant.last
-    created_at = merchant.created_at.to_time.utc
-    # require "pry"; binding.pry
+    created_at = merchant.created_at.to_s
+
     get "/api/v1/merchants/find?created_at=#{created_at}"
 
     expect(response).to be_successful

@@ -31,10 +31,12 @@ describe "merchant finder API" do
     create_list(:merchant, 10)
 
     merchant = Merchant.last
-
-    get "/api/v1/merchants/find?created_at=#{merchant.created_at.to_datetime}"
+    created_at = merchant.created_at.to_time.utc
+    # require "pry"; binding.pry
+    get "/api/v1/merchants/find?created_at=#{created_at}"
 
     expect(response).to be_successful
+
 
     merchant_info = JSON.parse(response.body)
     expect(merchant_info["data"]["attributes"]["name"]).to eq(merchant.name)
@@ -44,7 +46,7 @@ end
 describe "merchant find_all API" do
   it "returns all merchants that have an id matching the query param" do
     merchant1 = create(:merchant, name: "Bob")
-    merchant2 = create(:merchant, name: "Bob")
+    merchant2 = create(:merchant, name: "Scott")
     merchant3 = create(:merchant, name: "Not Bob")
 
     get "/api/v1/merchants/find_all?id=#{merchant1.id}"

@@ -28,7 +28,7 @@ describe "merchant finder API" do
   end
 
   it "returns a single instance of merchant based off date created" do
-    create(:merchant, created_at: "2020-01-10", updated_:at "2020-01-25")
+    create(:merchant, created_at: "2020-01-10", updated_at: "2020-01-25")
 
     merchant = Merchant.last
     created_at = merchant.created_at.to_s

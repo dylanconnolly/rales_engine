@@ -37,7 +37,11 @@ describe "merchant favorite_customer request" do
     expect(response).to be_successful
 
     fav_customer = JSON.parse(response.body)["data"]
+    expect(fav_customer["attributes"]["first_name"]).to eq(customer1.first_name)
 
-    expect(fav_customer).to eq(customer1.name)
+    get "/api/v1/merchants/#{merchant2.id}/favorite_customer"
+
+    fav_customer = JSON.parse(response.body)["data"]
+    expect(fav_customer["attributes"]["first_name"]).to eq(customer2.first_name)
   end
 end

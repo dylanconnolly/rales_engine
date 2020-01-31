@@ -1,7 +1,7 @@
 class Api::V1::Items::FindController < ApplicationController
 
   def index
-    item = Item.find_by(search_params)
+    item = Item.order(:id).find_by(search_params)
     
     render json: ItemSerializer.new(item)
   end

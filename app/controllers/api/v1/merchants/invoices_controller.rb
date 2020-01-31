@@ -4,6 +4,6 @@ class Api::V1::Merchants::InvoicesController < ApplicationController
     merchant = Merchant.find(params[:merchant_id])
     invoices = merchant.invoices
 
-    render json: InvoicesSerializer.new(invoices)
+    render json: InvoiceSerializer.new(invoices)
   end
 end

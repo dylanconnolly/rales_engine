@@ -20,6 +20,8 @@ Rails.application.routes.draw do
         end
 
       end
+
+      resources :items, only: [:index, :show]
     end
   end
 end

@@ -27,7 +27,9 @@ describe "merchant API" do
       create(:transaction, invoice: invoice)
     end
 
-    get "/api/v1/merchants/revenue?date=#{Date.today.strftime('%Y-%m-%d')}"
+    date = Invoice.first.created_at.strftime('%Y-%m-%d')
+
+    get "/api/v1/merchants/revenue?date=#{date}"
 
     expect(response).to be_successful
 

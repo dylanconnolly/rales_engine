@@ -21,6 +21,10 @@ Rails.application.routes.draw do
 
       end
 
+      namespace :items do
+        resources :find, only: [:index]
+      end
+
       resources :items, only: [:index, :show]
     end
   end

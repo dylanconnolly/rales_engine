@@ -42,7 +42,7 @@ describe "items API" do
     expect(item_info["attributes"]["name"]).to eq(item.name)
   end
 
-  it "returns a single instace of item based off description" do
+  it "returns a single instance of item based off description" do
     create_list(:item, 5)
 
     item = Item.all.first
@@ -56,7 +56,7 @@ describe "items API" do
     expect(item_info["attributes"]["id"]).to eq(item.id)
   end
 
-  it "returns a single instace of item based off unit price" do
+  it "returns a single instance of item based off unit price" do
     item1 = create(:item, unit_price: 1100)
     item2 = create(:item, unit_price: 2245)
 
@@ -75,8 +75,19 @@ describe "items API" do
     expect(item_info["attributes"]["id"]).to eq(item2.id)
   end
 
-  it "returns a single instace of item based off merchant id" do
+  it "returns a single instance of item based off merchant id" do
+    merchant = create(:merchant)
+    create_list(:item, 5, merchant: merchant)
 
+    item = Item.all.first
+
+    get "/api/v1/items/find?merchant_id=#{merchant.id}"
+
+    expect(response).to be_successful
+
+    item_info = JSON.parse(response.body)["data"]
+
+    expect(item_info["attributes"]["id"]).to eq(item.id)
   end
 
   it "returns a single instance of item based off date created" do

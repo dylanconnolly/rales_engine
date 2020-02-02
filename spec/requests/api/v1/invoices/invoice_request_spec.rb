@@ -16,7 +16,7 @@ describe 'Invoices API' do
   it "can send one merchant by id" do
     invoice = create(:invoice)
 
-    get "/api/v1/merchants/#{invoice.id}"
+    get "/api/v1/invoices/#{invoice.id}"
 
     expect(response).to be_successful
 

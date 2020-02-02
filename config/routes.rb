@@ -33,6 +33,8 @@ Rails.application.routes.draw do
           resources :best_day, only: :index
         end
       end
+
+      resources :invoices, only: [:index, :show]
     end
   end
 end

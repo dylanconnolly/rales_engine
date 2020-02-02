@@ -14,17 +14,19 @@ class Item < ApplicationRecord
 
   def self.best_day(item_id)
     Item.joins(invoices: :transactions).
-    select("COUNT(invoices.created_at), date_trunc('day', invoices.created_at) AS best_day").
-    group('invoices.created_at').
+    select("SUM(invoice_items.quantity) AS total_orders, date_trunc('day', invoices.created_at) AS best_day").
+    group('best_day, invoice_items.quantity').
     merge(Transaction.successful).
     where("items.id = #{item_id}").
-    order('count desc, best_day desc').
+    order('total_orders desc, best_day desc').
     limit(1)
   end
 end
 
 # Item.joins(invoices: :transactions).
-# select("COUNT(invoices.created_at), date_trunc('day', invoices.created_at) AS best_day").
-# group('invoices.created_at').
+# select("date_trunc('day', invoices.created_at) AS best_day, SUM(invoice_items.quantity) AS total_orders").
+# group('invoices.created_at, invoice_items.quantity').
 # merge(Transaction.successful).
-# where("items.id = 1099").to_sql
+# where("items.id = 2198").
+# order('total_orders desc, best_day desc').
+# limit(1)

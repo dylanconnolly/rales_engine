@@ -19,4 +19,18 @@ describe 'item relationships endpoints' do
     expect(invoice_items.first["attributes"]["id"]).to eq(first.id)
     expect(invoice_items.last["attributes"]["id"]).to eq(last.id)
   end
+
+  it "can return the merchant who the item belongs to" do
+    item = create(:item)
+
+    merchant = item.merchant
+
+    get "/api/v1/items/#{item.id}/merchant"
+
+    expect(response).to be_successful
+
+    merchant_info = JSON.parse(response.body)["data"]
+
+    expect(merchant_info["attributes"]["id"]).to eq(merchant.id)
+  end
 end

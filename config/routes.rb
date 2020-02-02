@@ -53,6 +53,8 @@ Rails.application.routes.draw do
         resources :find_all, only: :index
       end
       resources :transactions, only: [:index, :show]
+
+      resources :customers, only: [:index, :show]
     end
   end
 end

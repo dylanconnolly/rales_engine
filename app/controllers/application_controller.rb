@@ -8,6 +8,9 @@ class ApplicationController < ActionController::API
     if search_params.keys.include?("status")
       converted_params["status"] = (search_params["status"].downcase)
     end
+    if search_params.keys.include?("name")
+      converted_params["name"] = ((search_params["name"]).titleize)
+    end
     converted_params
   end
 end

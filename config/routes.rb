@@ -20,6 +20,14 @@ Rails.application.routes.draw do
         end
 
       end
+
+      namespace :items do
+        resources :find, only: [:index]
+        resources :find_all, only: [:index]
+        resources :random, only: [:index], :controller => "random_item"
+      end
+
+      resources :items, only: [:index, :show]
     end
   end
 end

@@ -230,4 +230,33 @@ describe "item find_all request" do
     expect(item_info["data"].first["attributes"]["id"]).to eq(item2.id)
   end
 
+  it "query params are case insensitive when looking for an item" do
+    item = create(:item, name: "This Item Has Lots Of Capitals")
+    description = item.description
+
+    get "/api/v1/items/find?name=#{item.name.downcase}"
+
+    expect(response).to be_successful
+    item_info = JSON.parse(response.body)["data"]
+    expect(item_info["attributes"]["id"]).to eq(item.id)
+
+    get "/api/v1/items/find?description=#{description.upcase}"
+
+    expect(response).to be_successful
+    item_info = JSON.parse(response.body)["data"]
+    expect(item_info["attributes"]["id"]).to eq(item.id)
+
+    get "/api/v1/items/find_all?name=#{item.name.upcase}"
+
+    expect(response).to be_successful
+    item_info = JSON.parse(response.body)["data"]
+    expect(item_info.first["attributes"]["id"]).to eq(item.id)
+
+    get "/api/v1/items/find_all?description=#{description.downcase}"
+
+    expect(response).to be_successful
+    item_info = JSON.parse(response.body)["data"]
+    expect(item_info.first["attributes"]["id"]).to eq(item.id)
+  end
+
 end

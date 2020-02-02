@@ -33,6 +33,15 @@ Rails.application.routes.draw do
           resources :best_day, only: :index
         end
       end
+
+      namespace :invoices do
+        resources :find, only: :index
+        resources :find_all, only: :index
+      end
+
+      resources :invoices, only: [:index, :show]
+
+
     end
   end
 end

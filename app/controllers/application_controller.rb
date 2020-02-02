@@ -17,6 +17,12 @@ class ApplicationController < ActionController::API
     if search_params.keys.include?("result")
       converted_params["result"] = (search_params["result"].downcase)
     end
+    if search_params.keys.include?("first_name")
+      converted_params["first_name"] = (search_params["first_name"].titleize)
+    end
+    if search_params.keys.include?("last_name")
+      converted_params["last_name"] = (search_params["last_name"].titleize)
+    end
     converted_params
   end
 

@@ -1,7 +1,8 @@
 class Api::V1::Items::MostRevenueController < ApplicationController
 
   def index
-    Item.most_revenue(params[:quantity])
-    require "pry"; binding.pry
+    most_revenue = Item.most_revenue(params[:quantity])
+    
+    render json: ItemSerializer.new(most_revenue)
   end
 end

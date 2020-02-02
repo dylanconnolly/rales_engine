@@ -1,7 +1,7 @@
 class Api::V1::Items::FindAllController < ApplicationController
 
   def index
-    items = Item.where(converted_params)
+    items = Item.order(:id).where(converted_params)
 
     render json: ItemSerializer.new(items)
   end

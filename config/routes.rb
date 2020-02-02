@@ -41,7 +41,12 @@ Rails.application.routes.draw do
 
       resources :invoices, only: [:index, :show]
 
+      namespace :invoice_items do
+        resources :find, only: :index
+        resources :find_all, only: :index
+      end
 
+      resources :invoice_items, only: [:index, :show]
     end
   end
 end

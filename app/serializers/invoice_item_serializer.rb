@@ -4,7 +4,7 @@ class InvoiceItemSerializer
   belongs_to :item
   belongs_to :invoice
 
-  attributes :id, :quantity, :item_id, :invoice_id
+  attributes :id, :quantity, :item_id, :invoice_id, :unit_price
 
   attribute :unit_price do |invoice_item|
     '%.2f' % invoice_item.item.convert_to_dollars(invoice_item.item.unit_price)

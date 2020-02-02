@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "item single finder endpoints" do
+describe "invoice single finder endpoints" do
   it "can find a single invoice based off id" do
     create_list(:invoice, 5)
 
@@ -174,7 +174,7 @@ describe "invoices find_all request" do
     expect(invoice_info["data"].last["attributes"]["id"]).to eq(invoice4.id)
   end
 
-  it "returns all items that were created on a specific date" do
+  it "returns all invoices that were created on a specific date" do
     invoice1 = create(:invoice, created_at: "2020-01-10", updated_at: "2020-01-25")
     invoice2 = create(:invoice, created_at: "2020-01-10", updated_at: "2020-01-31")
     invoice3 = create(:invoice, created_at: "2020-01-12", updated_at: "2020-01-25")

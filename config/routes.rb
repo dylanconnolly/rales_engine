@@ -23,12 +23,14 @@ Rails.application.routes.draw do
         resources :find, only: :index
         resources :find_all, only: :index
         resources :random, only: :index, :controller => "random_item"
+        resources :most_revenue, only: :index
       end
 
       resources :items, only: [:index, :show] do
         scope module: 'items' do
           resources :invoice_items, only: :index
           resources :merchant, only: :index
+          resources :best_day, only: :index
         end
       end
     end

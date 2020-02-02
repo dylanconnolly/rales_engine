@@ -52,7 +52,7 @@ describe "item single finder endpoints" do
     expect(invoice_info["attributes"]["id"]).to eq(invoice.id)
   end
 
-  xit "returns a single instance of invoice based off customer id" do
+  it "returns a single instance of invoice based off customer id" do
     customer = create(:customer)
     create_list(:invoice, 3, customer_id: customer.id)
 
@@ -120,102 +120,108 @@ describe "invoices find_all request" do
   end
 
 
-  xit "returns all items that have a name matching the query param" do
-    item1 = create(:item, name: "Cool Item")
-    item2 = create(:item, name: "Cool Item")
-    item3 = create(:item)
+  it "returns all invoices that have a status matching the query param" do
+    invoice1 = create(:invoice)
+    invoice2 = create(:invoice)
+    invoice3 = create(:invoice, status: 0)
+    invoice4 = create(:invoice, status: 0)
 
-    get "/api/v1/items/find_all?name=#{item1.name}"
+    get "/api/v1/invoices/find_all?status=shipped"
 
     expect(response).to be_successful
 
     invoice_info = JSON.parse(response.body)
 
     expect(invoice_info["data"].count).to eq(2)
-    expect(invoice_info["data"].first["attributes"]["id"]).to eq(item1.id)
-    expect(invoice_info["data"].last["attributes"]["id"]).to eq(item2.id)
+    expect(invoice_info["data"].first["attributes"]["id"]).to eq(invoice1.id)
+    expect(invoice_info["data"].last["attributes"]["id"]).to eq(invoice2.id)
+
+    get "/api/v1/invoices/find_all?status=unshipped"
+
+    invoice_info = JSON.parse(response.body)
+
+    expect(invoice_info["data"].count).to eq(2)
+    expect(invoice_info["data"].first["attributes"]["id"]).to eq(invoice3.id)
+    expect(invoice_info["data"].last["attributes"]["id"]).to eq(invoice4.id)
   end
 
-  xit "retuns all items that have a description matching query param" do
-    item1 = create(:item, description: "Item is a good item")
-    item2 = create(:item, description: "Item is a good item")
-    item3 = create(:item)
+  it "retuns all invoices that have a merchant id matching query param" do
+    merchant1 = create(:merchant)
+    merchant2 = create(:merchant)
+    invoice1 = create(:invoice, merchant_id: merchant1.id)
+    invoice2 = create(:invoice, merchant_id: merchant1.id)
+    invoice3 = create(:invoice, merchant_id: merchant2.id)
+    invoice4 = create(:invoice, merchant_id: merchant2.id)
 
-    get "/api/v1/items/find_all?description=#{item1.description}"
+    get "/api/v1/invoices/find_all?merchant_id=#{merchant1.id}"
 
     expect(response).to be_successful
 
     invoice_info = JSON.parse(response.body)
 
     expect(invoice_info["data"].count).to eq(2)
-    expect(invoice_info["data"].first["attributes"]["id"]).to eq(item1.id)
-    expect(invoice_info["data"].last["attributes"]["id"]).to eq(item2.id)
+    expect(invoice_info["data"].first["attributes"]["id"]).to eq(invoice1.id)
+    expect(invoice_info["data"].last["attributes"]["id"]).to eq(invoice2.id)
+
+    get "/api/v1/invoices/find_all?merchant_id=#{merchant2.id}"
+
+    expect(response).to be_successful
+
+    invoice_info = JSON.parse(response.body)
+
+    expect(invoice_info["data"].count).to eq(2)
+    expect(invoice_info["data"].first["attributes"]["id"]).to eq(invoice3.id)
+    expect(invoice_info["data"].last["attributes"]["id"]).to eq(invoice4.id)
   end
 
-  xit "retuns all items that have a unit price matching query param" do
-    item1 = create(:item, unit_price: 21689)
-    item2 = create(:item, unit_price: 21689)
-    item3 = create(:item)
+  it "returns all items that were created on a specific date" do
+    invoice1 = create(:invoice, created_at: "2020-01-10", updated_at: "2020-01-25")
+    invoice2 = create(:invoice, created_at: "2020-01-10", updated_at: "2020-01-31")
+    invoice3 = create(:invoice, created_at: "2020-01-12", updated_at: "2020-01-25")
 
-    get "/api/v1/items/find_all?unit_price=216.89"
-
-    expect(response).to be_successful
-
-    invoice_info = JSON.parse(response.body)
-
-    expect(invoice_info["data"].count).to eq(2)
-    expect(invoice_info["data"].first["attributes"]["id"]).to eq(item1.id)
-    expect(invoice_info["data"].last["attributes"]["id"]).to eq(item2.id)
-  end
-
-  xit "returns all items that were created on a specific date" do
-    item1 = create(:item, created_at: "2020-01-10", updated_at: "2020-01-25")
-    item2 = create(:item, created_at: "2020-01-10", updated_at: "2020-01-31")
-    item3 = create(:item, created_at: "2020-01-12", updated_at: "2020-01-25")
-
-    get "/api/v1/items/find_all?created_at=#{item1.created_at}"
+    get "/api/v1/invoices/find_all?created_at=#{invoice1.created_at}"
 
     expect(response).to be_successful
 
     invoice_info = JSON.parse(response.body)
 
     expect(invoice_info["data"].count).to eq(2)
-    expect(invoice_info["data"].first["attributes"]["id"]).to eq(item1.id)
-    expect(invoice_info["data"].last["attributes"]["id"]).to eq(item2.id)
+    expect(invoice_info["data"].first["attributes"]["id"]).to eq(invoice1.id)
+    expect(invoice_info["data"].last["attributes"]["id"]).to eq(invoice2.id)
 
-    get "/api/v1/items/find_all?created_at=#{item3.created_at}"
+    get "/api/v1/invoices/find_all?created_at=#{invoice3.created_at}"
 
     expect(response).to be_successful
 
     invoice_info = JSON.parse(response.body)
 
     expect(invoice_info["data"].count).to eq(1)
-    expect(invoice_info["data"].first["attributes"]["id"]).to eq(item3.id)
+    expect(invoice_info["data"].first["attributes"]["id"]).to eq(invoice3.id)
   end
 
-  xit "returns all items that were updated on a specific date" do
-    item1 = create(:item, created_at: "2020-01-10", updated_at: "2020-01-25")
-    item2 = create(:item, created_at: "2020-01-10", updated_at: "2020-01-14")
-    item3 = create(:item, created_at: "2020-01-12", updated_at: "2020-01-25")
+  it "returns all invoices that were updated on a specific date" do
+    invoice1 = create(:invoice, created_at: "2020-01-10", updated_at: "2020-01-25")
+    invoice2 = create(:invoice, created_at: "2020-01-10", updated_at: "2020-01-14")
+    invoice3 = create(:invoice, created_at: "2020-01-12", updated_at: "2020-01-25")
 
-    get "/api/v1/items/find_all?updated_at=#{item1.updated_at}"
+    get "/api/v1/invoices/find_all?updated_at=#{invoice1.updated_at}"
 
     expect(response).to be_successful
 
     invoice_info = JSON.parse(response.body)
 
     expect(invoice_info["data"].count).to eq(2)
-    expect(invoice_info["data"].first["attributes"]["id"]).to eq(item1.id)
-    expect(invoice_info["data"].last["attributes"]["id"]).to eq(item3.id)
+    expect(invoice_info["data"].first["attributes"]["id"]).to eq(invoice1.id)
+    expect(invoice_info["data"].last["attributes"]["id"]).to eq(invoice3.id)
 
-    get "/api/v1/items/find_all?updated_at=#{item2.updated_at}"
+    get "/api/v1/invoices/find_all?updated_at=#{invoice2.updated_at}"
 
     expect(response).to be_successful
 
     invoice_info = JSON.parse(response.body)
 
     expect(invoice_info["data"].count).to eq(1)
-    expect(invoice_info["data"].first["attributes"]["id"]).to eq(item2.id)
+    expect(invoice_info["data"].first["attributes"]["id"]).to eq(invoice2.id)
   end
 
 end

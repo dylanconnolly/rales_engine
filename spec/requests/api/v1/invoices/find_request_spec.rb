@@ -224,4 +224,29 @@ describe "invoices find_all request" do
     expect(invoice_info["data"].first["attributes"]["id"]).to eq(invoice2.id)
   end
 
+  it "can find records without being case sensitive" do
+    invoice = create(:invoice)
+    unshipped_invoice = create(:invoice, status: 0)
+
+    get "/api/v1/invoices/find?status=SHIPPED"
+
+    expect(response).to be_successful
+
+    invoice_info = JSON.parse(response.body)["data"]
+
+    expect(invoice_info["attributes"]["id"]).to eq(invoice.id)
+
+    get '/api/v1/invoices/find?status=uNshIppEd'
+
+    invoice_info = JSON.parse(response.body)["data"]
+
+    expect(invoice_info["attributes"]["id"]).to eq(unshipped_invoice.id)
+
+    get '/api/v1/invoices/find_all?status=UNSHIPPED'
+
+    invoice_info = JSON.parse(response.body)["data"]
+
+    expect(invoice_info.first["attributes"]["id"]).to eq(unshipped_invoice.id)
+  end
+
 end

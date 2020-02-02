@@ -34,7 +34,13 @@ Rails.application.routes.draw do
         end
       end
 
+      namespace :invoices do
+        resources :find, only: :index
+      end
+
       resources :invoices, only: [:index, :show]
+
+
     end
   end
 end

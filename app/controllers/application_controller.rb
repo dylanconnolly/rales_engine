@@ -14,6 +14,9 @@ class ApplicationController < ActionController::API
     if search_params.keys.include?("description")
       converted_params["description"] = capitalize_start_of_each_sentence(search_params["description"])
     end
+    if search_params.keys.include?("result")
+      converted_params["result"] = (search_params["result"].downcase)
+    end
     converted_params
   end
 

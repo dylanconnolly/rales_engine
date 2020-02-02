@@ -30,6 +30,7 @@ Rails.application.routes.draw do
         scope module: 'items' do
           resources :invoice_items, only: :index
           resources :merchant, only: :index
+          resources :best_day, only: :index
         end
       end
     end

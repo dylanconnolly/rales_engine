@@ -54,6 +54,11 @@ Rails.application.routes.draw do
       end
       resources :transactions, only: [:index, :show]
 
+      namespace :customers do
+        resources :find, only: :index
+        resources :find_all, only: :index
+      end
+
       resources :customers, only: [:index, :show]
     end
   end

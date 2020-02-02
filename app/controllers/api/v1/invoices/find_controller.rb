@@ -9,6 +9,6 @@ class Api::V1::Invoices::FindController < ApplicationController
   private
 
     def search_params
-      params.permit(:id, :status, :merchant_id, :customer_id, :created_ay, :updated_at)
+      params.permit(:id, :status, :merchant_id, :customer_id, :created_at, :updated_at)
     end
 end

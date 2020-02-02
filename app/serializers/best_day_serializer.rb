@@ -1,5 +1,7 @@
 class BestDaySerializer
   include FastJsonapi::ObjectSerializer
 
-  attributes :best_day
+  attribute :best_day do |item|  
+    item.best_day.strftime('%Y-%m-%d')
+  end
 end

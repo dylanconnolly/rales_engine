@@ -14,7 +14,7 @@ describe "random item API" do
     expect(response).to be_successful
 
     parse = JSON.parse(response.body)
-    random_items_id_1 = parse["data"]["attributes"]["id"]
+    random_item_id_1 = parse["data"]["attributes"]["id"]
 
     expect(item_ids).to include(random_item_id_1)
 

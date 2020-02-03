@@ -37,29 +37,57 @@ Rails.application.routes.draw do
       namespace :invoices do
         resources :find, only: :index
         resources :find_all, only: :index
+        resources :random, only: :index, :controller => "random_invoice"
       end
 
-      resources :invoices, only: [:index, :show]
+      resources :invoices, only: [:index, :show] do
+        scope module: 'invoices' do
+          resources :transactions, only: :index
+          resources :invoice_items, only: :index
+          resources :items, only: :index
+          resources :customer, only: :index
+          resources :merchant, only: :index
+        end
+      end
 
       namespace :invoice_items do
         resources :find, only: :index
         resources :find_all, only: :index
+        resources :random, only: :index, :controller => "random_invoice_item"
       end
 
-      resources :invoice_items, only: [:index, :show]
+      resources :invoice_items, only: [:index, :show] do
+        scope module: 'invoice_items' do
+          resources :invoice, only: :index
+          resources :item , only: :index
+        end
+      end
 
       namespace :transactions do
         resources :find, only: :index
         resources :find_all, only: :index
+        resources :random, only: :index, :controller => "random_transaction"
       end
-      resources :transactions, only: [:index, :show]
+
+      resources :transactions, only: [:index, :show] do
+        scope module: 'transactions' do
+          resources :invoice, only: :index
+        end
+      end
 
       namespace :customers do
         resources :find, only: :index
         resources :find_all, only: :index
+        resources :random, only: :index, :controller => "random_customer"
       end
 
-      resources :customers, only: [:index, :show]
+      resources :customers, only: [:index, :show] do
+        scope module: 'customers' do
+          resources :invoices, only: :index
+          resources :transactions, only: :index
+          resources :favorite_merchant, only: :index
+        end
+      end
     end
   end
 end

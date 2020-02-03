@@ -1,6 +1,7 @@
 class Customer < ApplicationRecord
   has_many :invoices, :dependent => :destroy
 
+  has_many :transactions, through: :invoices
 
   def self.most_transactions_at_merchant(merchant_id)
     joins(invoices: :transactions).

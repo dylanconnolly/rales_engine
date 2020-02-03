@@ -15,6 +15,8 @@ describe "customers relationships requests" do
 
     expect(invoices.count).to eq(5)
     expect(invoices.first["attributes"]["id"]).to eq(first_invoice.id)
-    expect(invoices.last["attributes"]["customer_id"]).to eq(customer.id)
+    invoices.each do |invoice|
+      expect(invoice["attributes"]["customer_id"]).to eq(customer.id)
+    end
   end
 end

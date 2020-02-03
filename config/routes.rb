@@ -66,8 +66,14 @@ Rails.application.routes.draw do
       namespace :transactions do
         resources :find, only: :index
         resources :find_all, only: :index
+        resources :random, only: :index, :controller => "random_transaction"
       end
-      resources :transactions, only: [:index, :show]
+
+      resources :transactions, only: [:index, :show] do
+        scope module: 'transactions' do
+          resources :invoice, only: :index
+        end
+      end
 
       namespace :customers do
         resources :find, only: :index

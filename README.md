@@ -8,10 +8,13 @@ Rales Engine is a project completed by myself during the first week of Module 3 
 
 ## Getting Started
 
+Ruby Version: 2.5.1
+Rails Version: 5.2.4
+
 1. Clone this repository.
 
 ```
-git clone git@github.com:LainMcGrath/monster_shop_part_1.git
+git@github.com:dylanconnolly/rales_engine.git
 ```
 2. Navigate into directory and bundle install:
 
@@ -19,7 +22,12 @@ git clone git@github.com:LainMcGrath/monster_shop_part_1.git
 cd rales_engine/
 bundle install
 ```
-3. Run rake task to import all of the records in the data file:
+3. Set up your database:
+```
+rake db:create
+rake db:migrate
+```
+4. Run rake task to import all of the records in the data file:
 
 ```
 rake db:load_all_data
@@ -34,29 +42,9 @@ rake db:load_items
 rake db:load_merchants
 rake db:load_transactions
 ```
-4. To run RSpec test suite:
+5. To run RSpec test suite:
 
 ```
 bundle exec rspec
 ```
 
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

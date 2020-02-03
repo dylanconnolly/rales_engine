@@ -18,10 +18,10 @@ describe "random invoice_item API" do
 
     expect(invoice_item_ids).to include(random_invoice_item1)
 
-    get '/api/v1/customers/random'
+    get '/api/v1/invoice_items/random'
     parse = JSON.parse(response.body)
     random_invoice_item2 = parse["data"]["attributes"]["id"]
-
+    
     expect(invoice_item_ids).to include(random_invoice_item2)
     expect(random_invoice_item1).to_not eq(random_invoice_item2)
   end

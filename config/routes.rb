@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       namespace :invoice_items do
         resources :find, only: :index
         resources :find_all, only: :index
+        resources :random, only: :index, :controller => "random_invoice_item"
       end
 
       resources :invoice_items, only: [:index, :show] do

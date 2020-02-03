@@ -57,6 +57,7 @@ Rails.application.routes.draw do
       namespace :customers do
         resources :find, only: :index
         resources :find_all, only: :index
+        resources :random, only: :index, :controller => "random_customer"
       end
 
       resources :customers, only: [:index, :show] do

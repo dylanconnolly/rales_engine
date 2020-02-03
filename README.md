@@ -4,7 +4,7 @@
 
 Backend Module 3 Week 1 Solo Project
 
-Rales Engine is a project completed by myself during the first week of Module 3 at Turing School of Software and Design. This project focuses on building API endpoints to expose sales data that was provided to in CSV files. Rales Engine consumes the sales date from the CSV files through a rake task and creates records for each resource type in the database. Once this has been completed, requests can be made to endpoints ranging from specific record endpoints to business intelligence endpoints which will return sales related insights on some or all of the data.
+Rales Engine is a project completed by myself during the first week of Module 3 at Turing School of Software and Design. This project focuses on building API endpoints to expose sales data that was provided to in CSV files. Rales Engine consumes the sales data from the CSV files through a rake task and creates records for each resource type in the database. Once this has been completed, requests can be made to endpoints ranging from specific record endpoints to business intelligence endpoints which will return sales related insights on some or all of the data.
 
 ## Getting Started
 

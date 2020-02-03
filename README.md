@@ -100,12 +100,12 @@ bundle exec rspec
 * `GET /api/v1/transactions/:id/invoice` - returns the invoice associated with that transaction
 
 ### Finder Endpoints
-In addition to the standard routes above, you can use finder endpoints to return a single object or all of the objects that match your query parameter. For each resource, any of their attributes can be used as a search parameter. Search parameters are case insensitive. 
+In addition to the standard routes above, you can use finder endpoints to return a single object or all of the objects that match your query parameter. For each resource, any of their attributes can be used as a search parameter. Search parameters are case insensitive.
+
+For example:
 
 * `GET /api/v1/items/find?parameters` - returns first instance of resource matching parameters
 * `GET /api/v1/items/find_all?parameters` - returns all instances of resource matching parameters
-
-Parameters for Items:
 
 Parameter | Description
 --- | ---

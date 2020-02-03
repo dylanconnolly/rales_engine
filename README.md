@@ -9,6 +9,7 @@ Rales Engine is a project completed by myself during the first week of Module 3 
 ## Getting Started
 
 Ruby Version: 2.5.1
+
 Rails Version: 5.2.4
 
 1. Clone this repository.

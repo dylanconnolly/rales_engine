@@ -59,7 +59,11 @@ Rails.application.routes.draw do
         resources :find_all, only: :index
       end
 
-      resources :customers, only: [:index, :show]
+      resources :customers, only: [:index, :show] do
+        scope module: 'customers' do
+          resources :invoices, only: :index
+        end
+      end
     end
   end
 end

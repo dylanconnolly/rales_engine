@@ -106,6 +106,7 @@ In addition to the standard routes above, you can use finder endpoints to return
 * `GET /api/v1/items/find_all?parameters` - returns all instances of resource matching parameters
 
 Parameters for Items:
+
 Parameter | Description
 --- | ---
 id | search based on the primary key

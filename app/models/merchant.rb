@@ -23,4 +23,14 @@ class Merchant < ApplicationRecord
     where("invoices.created_at BETWEEN '#{starttime}' AND '#{endtime}'").
     limit(1)
   end
+
+  def self.favorite_merchant(customer_id)
+    joins(invoices: :transactions).
+    select('merchants.*, count(*)').
+    group(:id).
+    merge(Transaction.successful).
+    merge(Invoice.customer(customer_id)).
+    order('count desc').limit(1)
+  end
+
 end

@@ -39,7 +39,12 @@ Rails.application.routes.draw do
         resources :find_all, only: :index
       end
 
-      resources :invoices, only: [:index, :show]
+      resources :invoices, only: [:index, :show] do
+        scope module: 'invoices' do
+          resources :transactions, only: :index
+          resources :invoice_items, only: :index
+        end
+      end
 
       namespace :invoice_items do
         resources :find, only: :index

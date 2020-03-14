@@ -1,11 +1,30 @@
 # Rales Engine
 
-## Background and Description
+
+## Table of Contents
+
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+* [Usage](#usage)
+
+<!-- ABOUT THE PROJECT -->
+## About the Project
 
 Backend Module 3 Week 1 Solo Project
 
-Rales Engine is a solo project completed during the first week of Module 3 at Turing School of Software and Design. This project focuses on building API endpoints to expose sales data that was provided to in CSV files. Rales Engine consumes the sales data from the CSV files through a rake task and creates records for each resource type in the database. Once this has been completed, requests can be made to endpoints ranging from specific record endpoints to business intelligence endpoints which will return sales related insights on some or all of the data.
+Rales Engine is a solo project completed during the first week of Module 3 at Turing School of Software and Design. This project focuses on building API endpoints to expose sales data that was provided in CSV files. Rales Engine consumes the sales data from the CSV files through a rake task and creates records for each resource type in the database. Once this has been completed, requests can be made to endpoints ranging from specific record endpoints to business intelligence endpoints which will return sales related insights on some or all of the data.
 
+### Built With
+
+* Rails (API only)
+* Ruby
+* FastJSON API
+
+### Tested With
+* RSpec
+
+<!-- GETTING STARTED -->
 ## Getting Started
 
 Ruby Version: 2.5.1
@@ -47,7 +66,7 @@ rake db:load_transactions
 ```
 bundle exec rspec
 ```
-## Accessing API Endpoints
+## Usage
 
 ### Customer Endpoints
 * `GET /api/v1/customers` - returns index of all customers
